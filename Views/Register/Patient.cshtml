@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model PatientDetail
+
+<div>
+<h2>Enter your Details</h2>
+</div>
+<div>
+    <form method="post" action="/Register/Patient">
+    First Name  @Html.TextBoxFor(m => m.Fname)
+    <br />
+    Middle Name @Html.TextBoxFor(m => m.Mname)
+    <br />
+    Last Name   @Html.TextBoxFor(m => m.Lname)
+    <br />
+    Permanent Address   @Html.TextAreaFor(m => m.PAddress)
+    <br />
+    Temporary Address   @Html.TextAreaFor(m => m.TAddress)
+    <br /><br />
+
+@*    check box of Services Required using Viewdata
+    drop down of care giver using viewdata
+*@ 
+<br />
+        
+<input type="submit" value="Submit" id="submitbtn" />
+        
+    </form>
+</div>

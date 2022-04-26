@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CareGiver
+
+<div>
+<h2>Enter your Details</h2>
+</div>
+<div>
+    <form method="post" action="/Register/Caregiver">
+    First Name  @Html.TextBoxFor(m => m.Fname)
+    <br />
+    Middle Name @Html.TextBoxFor(m => m.Mname)
+    <br />
+    Last Name   @Html.TextBoxFor(m => m.Lname)
+    <br />
+    User ID     @Html.TextBoxFor(m => m.Uid)
+    <br />
+    Address   @Html.TextAreaFor(m => m.Address)
+    <br />
+
+    @*Is individual Radio button*@
+    
+    Experience  @Html.TextBoxFor(m => m.Experiance)
+    <br /><br />
+        
+<input type="submit" value="Submit" id="submitbtn" />
+        
+    </form>
+</div>
