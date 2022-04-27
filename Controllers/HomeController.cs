@@ -17,7 +17,10 @@ namespace LivingAssistance2.Controllers
         {
             return View();
         }
+<<<<<<< HEAD
         
+=======
+>>>>>>> dbfee8dcdd8c198ac9522b5e90292b708293e2b7
         public IActionResult Services()
         {
             return View();
