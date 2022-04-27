@@ -17,26 +17,21 @@ namespace LivingAssistance2.Models
         }
 
         public virtual DbSet<BookingDetail> BookingDetails { get; set; } = null!;
-        public virtual DbSet<BookingDetail1> BookingDetails1 { get; set; } = null!;
+       
         public virtual DbSet<CareGiver> CareGivers { get; set; } = null!;
-        public virtual DbSet<CareGiverCompany> CareGiverCompanies { get; set; } = null!;
-        public virtual DbSet<CareGiverIndividual> CareGiverIndividuals { get; set; } = null!;
+       
         public virtual DbSet<Guardian> Guardians { get; set; } = null!;
-        public virtual DbSet<Patient> Patients { get; set; } = null!;
+       
         public virtual DbSet<PatientDetail> PatientDetails { get; set; } = null!;
         public virtual DbSet<Service> Services { get; set; } = null!;
         public virtual DbSet<UserDetail> UserDetails { get; set; } = null!;
         public virtual DbSet<UserType> UserTypes { get; set; } = null!;
-        public virtual DbSet<UserType1> UserTypes1 { get; set; } = null!;
+       
         public virtual DbSet<VerificationState> VerificationStates { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=192.168.6.196; Initial Catalog=ORG; User id=Tanya; password=Tanya@10");
-            }
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -86,51 +81,7 @@ namespace LivingAssistance2.Models
                     .HasConstraintName("FK_Patient_Id");
             });
 
-            modelBuilder.Entity<BookingDetail1>(entity =>
-            {
-                entity.HasKey(e => e.BookingReferenceId)
-                    .HasName("PK__Booking___57D9D2DFC036CD2C");
-
-                entity.ToTable("Booking_Details", "Deepak_Kumar");
-
-                entity.Property(e => e.BookingReferenceId)
-                    .HasMaxLength(50)
-                    .HasColumnName("Booking_reference_ID");
-
-                entity.Property(e => e.BookingDate)
-                    .HasColumnType("date")
-                    .HasColumnName("Booking_Date");
-
-                entity.Property(e => e.BookingTime).HasColumnName("booking_Time");
-
-                entity.Property(e => e.CareGiverId)
-                    .HasMaxLength(50)
-                    .HasColumnName("CareGiver_Id");
-
-                entity.Property(e => e.PatientId)
-                    .HasMaxLength(50)
-                    .HasColumnName("Patient_Id");
-
-                entity.Property(e => e.ServicesReq)
-                    .HasMaxLength(50)
-                    .HasColumnName("Services_Req");
-
-                entity.Property(e => e.TotalCharges)
-                    .HasColumnType("money")
-                    .HasColumnName("Total_Charges");
-
-                entity.HasOne(d => d.CareGiver)
-                    .WithMany(p => p.BookingDetail1s)
-                    .HasForeignKey(d => d.CareGiverId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_CareGiver_Id");
-
-                entity.HasOne(d => d.Patient)
-                    .WithMany(p => p.BookingDetail1s)
-                    .HasForeignKey(d => d.PatientId)
-                    .HasConstraintName("FK_Patient_Id");
-            });
-
+           
             modelBuilder.Entity<CareGiver>(entity =>
             {
                 entity.HasKey(e => e.Cid)
@@ -164,69 +115,7 @@ namespace LivingAssistance2.Models
                     .HasConstraintName("FK_VFStatus");
             });
 
-            modelBuilder.Entity<CareGiverCompany>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__CareGive__1788CC4C3F14D306");
-
-                entity.ToTable("CareGiverCompany");
-
-                entity.Property(e => e.UserId).HasMaxLength(10);
-
-                entity.Property(e => e.CompanyName).HasMaxLength(50);
-
-                entity.Property(e => e.ContactNumber).HasMaxLength(50);
-
-                entity.Property(e => e.Email).HasMaxLength(50);
-
-                entity.Property(e => e.Experiance).HasMaxLength(50);
-
-                entity.Property(e => e.MinQualificationOfStaffs).HasMaxLength(50);
-
-                entity.Property(e => e.NumberOfProfessional).HasMaxLength(50);
-
-                entity.Property(e => e.Password).HasMaxLength(20);
-
-                entity.Property(e => e.RecoginationAndAchievements).HasMaxLength(50);
-
-                entity.Property(e => e.RegistrationNo).HasMaxLength(50);
-
-                entity.Property(e => e.ServiceCity).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<CareGiverIndividual>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__CareGive__1788CC4C0F23E466");
-
-                entity.ToTable("CareGiverIndividual");
-
-                entity.Property(e => e.UserId).HasMaxLength(10);
-
-                entity.Property(e => e.Address).HasMaxLength(50);
-
-                entity.Property(e => e.Contact).HasMaxLength(50);
-
-                entity.Property(e => e.Email).HasMaxLength(50);
-
-                entity.Property(e => e.Experience).HasMaxLength(50);
-
-                entity.Property(e => e.FirstName).HasMaxLength(50);
-
-                entity.Property(e => e.Gender)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LastName).HasMaxLength(50);
-
-                entity.Property(e => e.Password).HasMaxLength(20);
-
-                entity.Property(e => e.Qualification).HasMaxLength(50);
-
-                entity.Property(e => e.Servicecity).HasMaxLength(50);
-
-                entity.Property(e => e.Specialization).HasMaxLength(50);
-            });
+            
 
             modelBuilder.Entity<Guardian>(entity =>
             {
@@ -262,39 +151,7 @@ namespace LivingAssistance2.Models
                     .HasConstraintName("FK_PId");
             });
 
-            modelBuilder.Entity<Patient>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__Patient__1788CC4C88889FF2");
-
-                entity.ToTable("Patient");
-
-                entity.Property(e => e.UserId).HasMaxLength(10);
-
-                entity.Property(e => e.Address).HasMaxLength(50);
-
-                entity.Property(e => e.City)
-                    .HasMaxLength(50)
-                    .HasColumnName("city");
-
-                entity.Property(e => e.Contact).HasMaxLength(50);
-
-                entity.Property(e => e.Email).HasMaxLength(50);
-
-                entity.Property(e => e.FirstName).HasMaxLength(50);
-
-                entity.Property(e => e.Gender)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.GuardianContact).HasMaxLength(50);
-
-                entity.Property(e => e.LastName).HasMaxLength(50);
-
-                entity.Property(e => e.Password).HasMaxLength(20);
-
-                entity.Property(e => e.Serviceneeded).HasMaxLength(50);
-            });
+            
 
             modelBuilder.Entity<PatientDetail>(entity =>
             {
@@ -384,21 +241,7 @@ namespace LivingAssistance2.Models
                     .HasColumnName("User_Type_Name");
             });
 
-            modelBuilder.Entity<UserType1>(entity =>
-            {
-                entity.HasKey(e => e.UserTypeId)
-                    .HasName("PK__UserType__D3A592BCC0AB14A0");
-
-                entity.ToTable("UserTypes", "Deepak_Kumar");
-
-                entity.Property(e => e.UserTypeId)
-                    .HasMaxLength(50)
-                    .HasColumnName("User_Type_Id");
-
-                entity.Property(e => e.UserTypeName)
-                    .HasMaxLength(50)
-                    .HasColumnName("User_Type_Name");
-            });
+            
 
             modelBuilder.Entity<VerificationState>(entity =>
             {

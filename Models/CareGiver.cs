@@ -7,7 +7,7 @@ namespace LivingAssistance2.Models
     {
         public CareGiver()
         {
-            BookingDetail1s = new HashSet<BookingDetail1>();
+           
             BookingDetails = new HashSet<BookingDetail>();
             PatientDetails = new HashSet<PatientDetail>();
         }
@@ -23,7 +23,7 @@ namespace LivingAssistance2.Models
         public int? Experiance { get; set; }
 
         public virtual VerificationState? VfstatusNavigation { get; set; }
-        public virtual ICollection<BookingDetail1> BookingDetail1s { get; set; }
+        
         public virtual ICollection<BookingDetail> BookingDetails { get; set; }
         public virtual ICollection<PatientDetail> PatientDetails { get; set; }
     }
