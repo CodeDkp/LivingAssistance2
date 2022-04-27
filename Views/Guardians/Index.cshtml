@@ -1,0 +1,65 @@
+﻿@model IEnumerable<LivingAssistance2.Models.Guardian>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RelationWithPatient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RelationWithPatient)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.Pid)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Gid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Gid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Gid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

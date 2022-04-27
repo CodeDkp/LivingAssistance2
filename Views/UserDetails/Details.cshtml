@@ -1,0 +1,48 @@
+﻿@model LivingAssistance2.Models.UserDetail
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>UserDetail</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fname)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Mname)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lname)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserType.UserTypeId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Username">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
