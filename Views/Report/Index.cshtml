@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Report
+<form asp-controller="Report" asp-action="Display" method="get">
+<br />
+<div>
+    @*Drop down*@
+    <h4>Search</h4><br />
+    @Html.DropDownListFor(m => m.Searchtype, 
+            new SelectList(Enum.GetValues(typeof(Searching))), 
+            "Select") 
+</div>
+<br /><br /><br />
+
+<div style="margin:auto">
+    @*Search bar*@
+    @Html.TextBoxFor(m=>m.SearchData)
+    <button type="submit">Search</button>
+</div>
+</form>
+
