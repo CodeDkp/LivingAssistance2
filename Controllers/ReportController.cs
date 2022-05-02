@@ -1,5 +1,6 @@
 ﻿using LivingAssistance2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace LivingAssistance2.Controllers
 {
