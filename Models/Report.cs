@@ -5,11 +5,17 @@ namespace LivingAssistance2.Models
     public class Report
     {
         [Required]
-        public Searching Searchtype { get; set; }
+        public Searchtype Usertype { get; set; }
         [Required]
-        public String SearchData { get; set; }
+        public String Name { get; set; }
+        [Required]
+        public String Address { get; set; }
+        [Required]
+        public DateTime dt1 { get; set; }
+        [Required]
+        public DateTime dt2 { get; set; }
     }
-    public enum Searching
+    public enum Searchtype
     {
         Patient,
         CareGiver
