@@ -7,9 +7,9 @@ namespace LivingAssistance2.Models
         [Required]
         public Searchtype Usertype { get; set; }
         [Required]
-        public String Name { get; set; }
+        public String Name { get; set; } = null;
         [Required]
-        public String Address { get; set; }
+        public string? Address { get; set; } = null;
         [Required]
         public DateTime dt1 { get; set; }
         [Required]

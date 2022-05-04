@@ -1,64 +1,94 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model IEnumerable<LivingAssistance2.Models.PatientDetail>
+﻿@model Report
 @{
+    List<ReportDetail> griddata = ViewBag.GridData;
 }
-<h1>This is display view</h1>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+
+<form asp-controller="Report" asp-action="Index" method="get">
+<br />
+<div>
+    @*Drop down*@
+    <h4>Search</h4><br />
+    @Html.DropDownListFor(m=>m.Usertype, 
+            new SelectList(Enum.GetValues(typeof(Searchtype))), 
+            "Select") 
+</div>
+<br />
+
+<div style="margin:auto">
+    @*Search bar*@
+    Name <br />
+    @Html.TextBoxFor(m=>m.Name) <br />
+    Address <br />
+    @Html.TextBoxFor(m=>m.Address)  <br />
+    Date <br />
+    From  
+    @Html.TextBoxFor(m=>m.dt1,new {@type = "date"}) 
+    To   
+    @Html.TextBoxFor(m=>m.dt2,new {@type = "date"}) <br />
+   </div> 
+   <div class="text-center">
+    <button type="submit">Search</button>
+    </div>
+</form>
+
+<div>
+    
+    @if(griddata.Count == 0)
+    {
+        <div class="text-center">
+       <h3>@Html.DisplayName("Record Not found")</h3></div>
+    }
+    else if(griddata!=null)
+    {
+        <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Fname)
+                @Html.DisplayName("Patient")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mname)
+                @Html.DisplayName("Address")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Lname)
+                @Html.DisplayName("CareGive")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PAddress)
+                @Html.DisplayName("Services")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TAddress)
+                @Html.DisplayName("Experience")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SelectedCgNavigation)
+                @Html.DisplayName("VerificationStatus")
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in griddata) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Fname)
+                @item.Patient
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Mname)
+               @item.Address
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Lname)
+                @item.CareGive
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PAddress)
+                @item.Services
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TAddress)
+                @item.Experience
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SelectedCgNavigation.Cid)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Pid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Pid">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Pid">Delete</a>
+                @item.VerificationStatus
             </td>
         </tr>
 }
     </tbody>
 </table>
+    }
+</div>
