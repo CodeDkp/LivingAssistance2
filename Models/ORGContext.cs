@@ -247,7 +247,7 @@ namespace LivingAssistance2.Models
 
                 entity.Property(e => e.Username).HasMaxLength(50);
 
-                entity.Property(e => e.Email).HasMaxLength(20);
+                entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.Fname).HasMaxLength(50);
 
