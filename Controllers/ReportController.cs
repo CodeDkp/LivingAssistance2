@@ -34,7 +34,7 @@ namespace LivingAssistance2.Controllers
         private List<ReportDetail> GetData(Report R)
         {
 
-            SqlConnection con = new SqlConnection("Data Source=192.168.6.196; Initial Catalog=ORG; user id=Deepak_Kumar;password=Deepak_Kumar_123");
+            SqlConnection con = new SqlConnection("Data Source=192.168.6.196; Initial Catalog=ORG; user id=Tanya;password=Tanya@123");
             List<ReportDetail> stud = new List<ReportDetail>();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "Search_Procedure";
