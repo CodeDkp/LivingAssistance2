@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LivingAssistance2.Models;
+using LivingAssistance2.Servicee;
 
 
 namespace LivingAssistance2.Controllers
@@ -14,10 +15,12 @@ namespace LivingAssistance2.Controllers
     public class UserDetailsController : Controller
     {
         private readonly ORGContext _context;
+        private readonly IEmailService _emailService;
 
-        public UserDetailsController(ORGContext context)
+        public UserDetailsController(ORGContext context,IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         // GET: UserDetails
@@ -60,14 +63,26 @@ namespace LivingAssistance2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Fname,Mname,Lname,Username,Password,UserTypeId,Email")] UserDetail userDetail)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(userDetail);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(userDetail);
+                    await _context.SaveChangesAsync();
+                    //Email
+                    UserEmailOptions options = new UserEmailOptions
+                    {
+                        ToEmail = new List<string> { userDetail.Email }
+                    };
+                    await _emailService.SendTestEmail(options);
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["UserTypeId"] = new SelectList(_context.UserTypes, "UserTypeId", "UserTypeId", userDetail.UserTypeId);
+                return View(userDetail);
+            }catch (Exception ex)
+            {
+                return View("ErrorView");
             }
-            ViewData["UserTypeId"] = new SelectList(_context.UserTypes, "UserTypeId", "UserTypeId", userDetail.UserTypeId);
-            return View(userDetail);
         }
 
         // GET: UserDetails/Edit/5
