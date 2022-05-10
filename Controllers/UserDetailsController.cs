@@ -62,21 +62,26 @@ namespace LivingAssistance2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Fname,Mname,Lname,Username,Password,UserTypeId,Email")] UserDetail userDetail)
         {
-            //Email
-            UserEmailOptions options = new UserEmailOptions
+            try
             {
-                ToEmail = new List<string> { "tanya10sharma10@gmail.com" }
-            };
-            await _emailService.SendTestEmail(options);
-
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
+                {
+                    _context.Add(userDetail);
+                    await _context.SaveChangesAsync();
+                    //Email
+                    UserEmailOptions options = new UserEmailOptions
+                    {
+                        ToEmail = new List<string> { userDetail.Email }
+                    };
+                    await _emailService.SendTestEmail(options);
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["UserTypeId"] = new SelectList(_context.UserTypes, "UserTypeId", "UserTypeId", userDetail.UserTypeId);
+                return View(userDetail);
+            }catch (Exception ex)
             {
-                _context.Add(userDetail);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View("ErrorView");
             }
-            ViewData["UserTypeId"] = new SelectList(_context.UserTypes, "UserTypeId", "UserTypeId", userDetail.UserTypeId);
-            return View(userDetail);
         }
 
         // GET: UserDetails/Edit/5
