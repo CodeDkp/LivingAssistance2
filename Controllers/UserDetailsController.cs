@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LivingAssistance2.Models;
+using LivingAssistance2.Servicee;
 
 namespace LivingAssistance2.Controllers
 {
     public class UserDetailsController : Controller
     {
         private readonly ORGContext _context;
+        private readonly IEmailService _emailService;
 
-        public UserDetailsController(ORGContext context)
+        public UserDetailsController(ORGContext context,IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         // GET: UserDetails
@@ -59,6 +62,13 @@ namespace LivingAssistance2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Fname,Mname,Lname,Username,Password,UserTypeId,Email")] UserDetail userDetail)
         {
+            //Email
+            UserEmailOptions options = new UserEmailOptions
+            {
+                ToEmail = new List<string> { "tanya10sharma10@gmail.com" }
+            };
+            await _emailService.SendTestEmail(options);
+
             if (ModelState.IsValid)
             {
                 _context.Add(userDetail);
