@@ -57,7 +57,7 @@ namespace LivingAssistance2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Fname,Mname,Lname,Username,Password,UserTypeId")] UserDetail userDetail)
+        public async Task<IActionResult> Create([Bind("Fname,Mname,Lname,Username,Password,UserTypeId,Email")] UserDetail userDetail)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace LivingAssistance2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Fname,Mname,Lname,Username,Password,UserTypeId")] UserDetail userDetail)
+        public async Task<IActionResult> Edit(string id, [Bind("Fname,Mname,Lname,Username,Password,UserTypeId,Email")] UserDetail userDetail)
         {
             if (id != userDetail.Username)
             {

@@ -17,31 +17,34 @@ namespace LivingAssistance2.Models
         }
 
         public virtual DbSet<BookingDetail> BookingDetails { get; set; } = null!;
-       
         public virtual DbSet<CareGiver> CareGivers { get; set; } = null!;
-       
         public virtual DbSet<Guardian> Guardians { get; set; } = null!;
-       
+        public virtual DbSet<Patient> Patients { get; set; } = null!;
         public virtual DbSet<PatientDetail> PatientDetails { get; set; } = null!;
         public virtual DbSet<Service> Services { get; set; } = null!;
         public virtual DbSet<UserDetail> UserDetails { get; set; } = null!;
         public virtual DbSet<UserType> UserTypes { get; set; } = null!;
-       
         public virtual DbSet<VerificationState> VerificationStates { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=192.168.6.196; Initial Catalog=ORG; user id=Deepak_Kumar;password=Deepak_Kumar_123");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("Deepak_Kumar");
+
             modelBuilder.Entity<BookingDetail>(entity =>
             {
                 entity.HasKey(e => e.BookingReferenceId)
                     .HasName("PK__Booking___57D9D2DFDBE69955");
 
-                entity.ToTable("Booking_Details");
+                entity.ToTable("Booking_Details", "dbo");
 
                 entity.Property(e => e.BookingReferenceId)
                     .HasMaxLength(50)
@@ -81,11 +84,12 @@ namespace LivingAssistance2.Models
                     .HasConstraintName("FK_Patient_Id");
             });
 
-           
             modelBuilder.Entity<CareGiver>(entity =>
             {
                 entity.HasKey(e => e.Cid)
                     .HasName("PK__CareGive__C1F8DC3943D45202");
+
+                entity.ToTable("CareGivers", "dbo");
 
                 entity.HasIndex(e => e.Uid, "UQ__CareGive__C5B19663645425AA")
                     .IsUnique();
@@ -115,14 +119,12 @@ namespace LivingAssistance2.Models
                     .HasConstraintName("FK_VFStatus");
             });
 
-            
-
             modelBuilder.Entity<Guardian>(entity =>
             {
                 entity.HasKey(e => e.Gid)
                     .HasName("PK__Guardian__C51F0F1EE6DD8EA5");
 
-                entity.ToTable("Guardian");
+                entity.ToTable("Guardian", "dbo");
 
                 entity.Property(e => e.Gid)
                     .HasMaxLength(50)
@@ -151,14 +153,46 @@ namespace LivingAssistance2.Models
                     .HasConstraintName("FK_PId");
             });
 
-            
+            modelBuilder.Entity<Patient>(entity =>
+            {
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__Patient__1788CC4C88889FF2");
+
+                entity.ToTable("Patient", "dbo");
+
+                entity.Property(e => e.UserId).HasMaxLength(10);
+
+                entity.Property(e => e.Address).HasMaxLength(50);
+
+                entity.Property(e => e.City)
+                    .HasMaxLength(50)
+                    .HasColumnName("city");
+
+                entity.Property(e => e.Contact).HasMaxLength(50);
+
+                entity.Property(e => e.Email).HasMaxLength(50);
+
+                entity.Property(e => e.FirstName).HasMaxLength(50);
+
+                entity.Property(e => e.Gender)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.GuardianContact).HasMaxLength(50);
+
+                entity.Property(e => e.LastName).HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(20);
+
+                entity.Property(e => e.Serviceneeded).HasMaxLength(50);
+            });
 
             modelBuilder.Entity<PatientDetail>(entity =>
             {
                 entity.HasKey(e => e.Pid)
                     .HasName("PK__Patient___C577554069056116");
 
-                entity.ToTable("Patient_details");
+                entity.ToTable("Patient_details", "dbo");
 
                 entity.Property(e => e.Pid)
                     .HasMaxLength(50)
@@ -190,6 +224,8 @@ namespace LivingAssistance2.Models
                 entity.HasKey(e => e.ServicesId)
                     .HasName("PK__Services__A74BF8549A93B504");
 
+                entity.ToTable("Services", "dbo");
+
                 entity.HasIndex(e => e.ServicesId, "SV_Services_ID")
                     .IsUnique();
 
@@ -207,9 +243,11 @@ namespace LivingAssistance2.Models
                 entity.HasKey(e => e.Username)
                     .HasName("PK__User_Det__536C85E59225F801");
 
-                entity.ToTable("User_Details");
+                entity.ToTable("User_Details", "dbo");
 
                 entity.Property(e => e.Username).HasMaxLength(50);
+
+                entity.Property(e => e.Email).HasMaxLength(20);
 
                 entity.Property(e => e.Fname).HasMaxLength(50);
 
@@ -232,6 +270,8 @@ namespace LivingAssistance2.Models
 
             modelBuilder.Entity<UserType>(entity =>
             {
+                entity.ToTable("UserTypes", "dbo");
+
                 entity.Property(e => e.UserTypeId)
                     .HasMaxLength(50)
                     .HasColumnName("User_Type_Id");
@@ -241,14 +281,12 @@ namespace LivingAssistance2.Models
                     .HasColumnName("User_Type_Name");
             });
 
-            
-
             modelBuilder.Entity<VerificationState>(entity =>
             {
                 entity.HasKey(e => e.VerificationId)
                     .HasName("PK_Verification_ID");
 
-                entity.ToTable("VerificationState");
+                entity.ToTable("VerificationState", "dbo");
 
                 entity.Property(e => e.VerificationId)
                     .HasMaxLength(50)
