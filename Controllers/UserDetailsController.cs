@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LivingAssistance2.Models;
 
+
 namespace LivingAssistance2.Controllers
 {
     public class UserDetailsController : Controller
