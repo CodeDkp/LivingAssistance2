@@ -1,5 +1,7 @@
 using LivingAssistance2.Models;
+using LivingAssistance2.Servicee;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ORGContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("dbconn")));
+builder.Services.Configure<SMTPConfigModel>(builder.Configuration.GetSection("SMTPConfig"));
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
