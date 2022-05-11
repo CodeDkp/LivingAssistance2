@@ -10,6 +10,7 @@ using LivingAssistance2.Models;
 using LivingAssistance2.Servicee;
 using LivingAssistance2.Security;
 
+
 namespace LivingAssistance2.Controllers
 {
     public class UserDetailsController : Controller
