@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LivingAssistance2.Models;
 using LivingAssistance2.Servicee;
+using LivingAssistance2.Security;
 
 namespace LivingAssistance2.Controllers
 {
@@ -62,26 +63,34 @@ namespace LivingAssistance2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Fname,Mname,Lname,Username,Password,UserTypeId,Email")] UserDetail userDetail)
         {
-            try
-            {
+            //Encryptions
+            
+            var newKey = Encrypt.GeneratePassword(10);
+            var password = Encrypt.EncodePassword(userDetail.Password,newKey);
                 if (ModelState.IsValid)
                 {
+                userDetail.Password = password;
                     _context.Add(userDetail);
+                   
                     await _context.SaveChangesAsync();
+                try
+                {
                     //Email
                     UserEmailOptions options = new UserEmailOptions
                     {
                         ToEmail = new List<string> { userDetail.Email }
                     };
                     await _emailService.SendTestEmail(options);
-                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    return View("ErrorView");
+                }
+                return RedirectToAction(nameof(Index));
                 }
                 ViewData["UserTypeId"] = new SelectList(_context.UserTypes, "UserTypeId", "UserTypeId", userDetail.UserTypeId);
                 return View(userDetail);
-            }catch (Exception ex)
-            {
-                return View("ErrorView");
-            }
+            
         }
 
         // GET: UserDetails/Edit/5
