@@ -11,7 +11,7 @@ namespace LivingAssistance2.Security
             const string allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
             var randNum = new Random();
             var chars = new char[length];
-            var allowedCharCount = allowedChars.Length;
+            //var allowedCharCount = allowedChars.Length;
             for (var i = 0; i <= length - 1; i++)
             {
                 chars[i] = allowedChars[Convert.ToInt32((allowedChars.Length) * randNum.NextDouble())];
