@@ -70,7 +70,7 @@ namespace LivingAssistance2.Controllers
             var password = Encrypt.EncodePassword(userDetail.Password,newKey);
                 if (ModelState.IsValid)
                 {
-                userDetail.Password = password;
+                    userDetail.Password = password;
                     _context.Add(userDetail);
                    
                     await _context.SaveChangesAsync();
