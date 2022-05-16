@@ -62,11 +62,12 @@ namespace LivingAssistance2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Fname,Mname,Lname,Username,Password,UserTypeId,Email")] UserDetail userDetail)
+        public async Task<IActionResult> Create([Bind("Fname,Mname,Lname,Username,Password,UserTypeId,Email,Saltvalue")] UserDetail userDetail)
         {
             //Encryptions
             
             var newKey = Encrypt.GeneratePassword(10);
+            userDetail.Saltvalue = newKey;
             var password = Encrypt.EncodePassword(userDetail.Password,newKey);
                 if (ModelState.IsValid)
                 {

@@ -34,7 +34,7 @@ namespace LivingAssistance2.Controllers
             bool userexists = CheckExitingUser(L);
             if (userexists)
             {
-                return View("Index","Home");
+                return View("Index", "Home");
             }
             else
             {
