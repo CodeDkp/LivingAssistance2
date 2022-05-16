@@ -1,5 +1,6 @@
 using LivingAssistance2.Models;
 using LivingAssistance2.Servicee;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -11,7 +12,12 @@ builder.Services.AddDbContext<ORGContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("dbconn")));
 builder.Services.Configure<SMTPConfigModel>(builder.Configuration.GetSection("SMTPConfig"));
 builder.Services.AddScoped<IEmailService, EmailService>();
-
+builder.Services.Configure<CookiePolicyOptions>(options=>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 var app = builder.Build();
 
@@ -25,10 +31,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseCookiePolicy();
 app.UseRouting();
+app.UseAuthentication();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

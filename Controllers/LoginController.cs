@@ -116,7 +116,7 @@ namespace LivingAssistance2.Controllers
             if (isAuthenticate)
             {
                 var principle = new ClaimsPrincipal(identity);
-                //var login = HttpContent.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle);
+                //var login = HttpContent.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                
             }
         }
