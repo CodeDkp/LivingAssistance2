@@ -1,5 +1,6 @@
 ﻿using LivingAssistance2.Models;
 using LivingAssistance2.Security;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -59,7 +60,7 @@ namespace LivingAssistance2.Controllers
                 if (query != null)
                 {
                         //User Exist
-                       // Authorization(L,query.UserTypeId);    //Authorize 
+                        Authorization(L,query.UserTypeId);    //Authorize 
                     return true;
                 }
                 return false;
@@ -116,7 +117,7 @@ namespace LivingAssistance2.Controllers
             if (isAuthenticate)
             {
                 var principle = new ClaimsPrincipal(identity);
-                //var login = HttpContent.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,principle);
                
             }
         }

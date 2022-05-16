@@ -1,4 +1,5 @@
 ﻿using LivingAssistance2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ namespace LivingAssistance2.Controllers
         {
             _context = context;
         }
+
+        [Authorize(Roles = "CareGiver")]
         public IActionResult Index(Report R)
         {
             if(R.Name != null)
